@@ -13,7 +13,8 @@ def read_abbre(word):
     read_abbre=""
     for i in word.split():
         for k,v in abbre_dict.items():
-            i = i.replace(k,v)
+            if i in k:
+                i = i.replace(k,v) 
         read_abbre = read_abbre+" "+i
     return read_abbre
     
