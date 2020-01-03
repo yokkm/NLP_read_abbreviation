@@ -1,5 +1,5 @@
-# USER INPUT :::: i h8 yuo fuckin c-u-n-t, yuo shold di3 @$$h0l3 - i will k1ll u @TEOTD
-# SYS_OUTPUT :::: i hate you fucking cunt you should die asshole i will kill u it the end of the day
+# USER INPUT :::: i h8 yuo fuckin c-u-n-t, yuo shold  dickh3adddddd fuckkkkkkk di3 @$$h0l3 - i will k1ll u @TEOTD'
+# SYS_OUTPUT :::: 'i hate you fucking cunt you should dickhead fuck die asshole i will kill u it the end of the day'
 '''
 Created by yokkm
 Created on 3/1/2020
@@ -81,5 +81,21 @@ def correct_string(word):
     return correct_str
     
     
+def modify(word):
+    new_words_list=[]
+    out=''
+    for i in word.split():
+        if len(i)>5:
+            out = re.sub(r'([a-z])\1+$', r'\1', i)
+            out = re.sub(r'^([a-z])\1+', r'\1', out)
+            new_words_list.append(out)
+        else:
+            new_words_list.append(i)
+    new_words_list=' '.join(new_words_list)
+        
+    return new_words_list
+
+
 # try this
-#abbre_then_replace('i h8 yuo fuckin c-u-n-t, yuo shold di3 @$$h0l3 - i will k1ll u @TEOTD')
+#abbre_then_replace('abbre_then_replace('i h8 yuo fuckin c-u-n-t, yuo shold  dickh3adddddd fuckkkkkkk di3 @$$h0l3 - i will k1ll u @TEOTD')')
+# OUTPUT >>> 'i hate you fucking cunt you should dickhead fuck die asshole i will kill u it the end of the day'
