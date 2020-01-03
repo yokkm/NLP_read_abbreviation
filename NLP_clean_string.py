@@ -1,0 +1,85 @@
+# USER INPUT :::: i h8 yuo fuckin c-u-n-t, yuo shold di3 @$$h0l3 - i will k1ll u @TEOTD
+# SYS_OUTPUT :::: i hate you fucking cunt you should die asshole i will kill u it the end of the day
+'''
+Created by yokkm
+Created on 3/1/2020
+Last modify 10.47 am
+
+Original code for correcting words https://norvig.com/spell-correct.html
+'''
+
+import pandas as pd
+import dill
+import re
+import pandas as pd
+from collections import Counter
+#from profanity_check import predict, predict_prob
+import warnings
+warnings.filterwarnings('ignore')
+
+
+'''Load dilled .pkl so that we dont have to worry about the funciton'''
+with open('/Users/yokk/read_abbre.pkl', 'rb') as f:
+    abbre_df=dill.load(f)
+    abbre_dict=dill.load(f)
+    read_abbre=dill.load(f)
+    
+def words(text): return re.findall(r'\w+', text.lower())
+
+WORDS = Counter(words(open('big.txt').read()))
+
+def P(word, N=sum(WORDS.values())): 
+    "Probability of `word`."
+    return WORDS[word] / N
+
+def correction(word): 
+    "Most probable spelling correction for word."
+    return max(candidates(word), key=P)
+
+def candidates(word): 
+    "Generate possible spelling corrections for word."
+    return (known([word]) or known(edits1(word)) or known(edits2(word)) or [word])
+
+def known(words): 
+    "The subset of `words` that appear in the dictionary of WORDS."
+    return set(w for w in words if w in WORDS)
+
+def edits1(word):
+    "All edits that are one edit away from `word`."
+    letters    = 'abcdefghijklmnopqrstuvwxyz'
+    splits     = [(word[:i], word[i:])    for i in range(len(word) + 1)]
+    deletes    = [L + R[1:]               for L, R in splits if R]
+    transposes = [L + R[1] + R[0] + R[2:] for L, R in splits if len(R)>1]
+    replaces   = [L + c + R[1:]           for L, R in splits if R for c in letters]
+    inserts    = [L + c + R               for L, R in splits for c in letters]
+    return set(deletes + transposes + replaces + inserts)
+
+def edits2(word): 
+    "All edits that are two edits away from `word`."
+    return (e2 for e1 in edits1(word) for e2 in edits1(e1))
+    
+# to->from of digits to string
+replacements = {'1': 'i', '2': 's', '3': 'e', '4': 'a', '5': 's','0':'o'
+                ,'8':'ate','@':'a','$':'s','_':"",'-':"",".":""}
+
+def replace_digit_string(word):
+    replace_dig_str=""
+    for i in word.split():
+        for k,v in replacements.items():
+            i = i.replace(k,v)  
+        replace_dig_str = replace_dig_str+" "+i
+    return correct_string(replace_dig_str)
+    
+def abbre_then_replace(word):
+    ans=read_abbre(word)
+    return replace_digit_string(ans)
+
+def correct_string(word):
+    correct_str=''
+    for i in word.split():
+        correct_str = correct_str+" "+correction(i)
+    return correct_str
+    
+    
+# try this
+#abbre_then_replace('i h8 yuo fuckin c-u-n-t, yuo shold di3 @$$h0l3 - i will k1ll u @TEOTD')
