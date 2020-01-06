@@ -17,9 +17,11 @@ from collections import Counter
 import warnings
 warnings.filterwarnings('ignore')
 
+cwd = os.getcwd()
+read_abbre_path = os.path.join(cwd, "read_abbre.pkl")
 
 '''Load dilled .pkl so that we dont have to worry about the funciton'''
-with open('/Users/yokk/read_abbre.pkl', 'rb') as f:
+with open(read_abbre_path, 'rb') as f:
     abbre_df=dill.load(f)
     abbre_dict=dill.load(f)
     read_abbre=dill.load(f)
