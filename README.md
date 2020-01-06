@@ -9,6 +9,9 @@ read_abbre_main.py
 big.txt
   - english words corpus contains 205k unique words (10% of badwords contains in here)
   
+main.py
+  - return toxicity levels of words
+  
 #### DEPENDENCIES FILES
   
   these following files need to be locate the same place as the main file to read its function
@@ -16,4 +19,6 @@ big.txt
     - read_abbre_main.py
     - reads sonar_func.py
     - correct_repeatedBadWords.pkl
+    - New_allcalled.pkl # the file is too large to be stored in github, so I stored in Kaggle dataset
+    (https://www.kaggle.com/chadapamettapun/nlp-hatespeech)
 
