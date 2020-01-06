@@ -12,6 +12,7 @@ big.txt
 #### DEPENDENCIES FILES
   
   these following files need to be locate the same place as the main file to read its function
+  
     - read_abbre_main.py
     - reads sonar_func.py
     - correct_repeatedBadWords.pkl
